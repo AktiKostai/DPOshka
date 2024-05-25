@@ -1,23 +1,14 @@
+from flask_restful import Resource, Api
 from flask import Flask, jsonify
 
 app = Flask(__name__)
+api = Api(app)
 
 
-@app.route('/books/<int:id>')
-def get_book(id):
-    book = {
-        "id": id,
-        "title": "Metro 2033",
-        "publication_date": "October 2010",
-        "publisher": "Glux",
-        "isbn": "9871789959384"
-    }
-    return jsonify(book)
-
-
-@app.route('/hello')
-def hello():
-    return "Hello world"
+class Employee(Resource):
+    def get(self):
+        return jsonify({'employee': 'Vasya Pupkin'})
+api.add_resource(Employee, '/employees')
 
 
 if __name__ == "__main__":
