@@ -8,8 +8,8 @@ db = SQLAlchemy(app)
 
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    count = db.Column(db.String(50))
+    name = db.Column(db.String(52))
+    count = db.Column(db.String(52))
 
     def __init__(self, name, count):
         self.name = name
