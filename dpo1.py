@@ -6,7 +6,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employees.db'
 
 db = SQLAlchemy(app)
 
-class Employee(db.Model):
+class Materials(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     count = db.Column(db.String(50))
@@ -18,26 +18,26 @@ class Employee(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route('/add_employee', methods=['POST'])
+@app.route('/add_materials', methods=['POST'])
 def add_employee():
     name = request.form['name']
     count = request.form['count']
-    employee = Employee(name, count)
-    db.session.add(employee)
+    materials = Materials(name, count)
+    db.session.add(materials)
     db.session.commit()
-    return{"session": "Employee added successfully"}
+    return{"session": "Materials added successfully"}
 
-@app.route('/get_employee/<int:id>')
+@app.route('/get_materials/<int:id>')
 def get_employee(id):
-    employee = Employee.query.get(id)
-    if employee:
+    materials = Materials.query.get(id)
+    if materials:
         return jsonify({
-            'id': employee.id,
-            'name': employee.name,
-            'count': employee.count
+            'id': materials.id,
+            'name': materials.name,
+            'count': materials.count
         })
     else:
-        return {'error': 'Employee not found'}
+        return {'error': 'Materials not found'}
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug=True)
